@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProjectWorkServiceCatalogo.API</name>
+    </assembly>
+    <members>
+        <member name="T:ProjectWorkServiceCatalogo.API.Controllers.CommonControllerBase">
+            <summary>
+            A base class for an API MVC controller with model state validation and base configurations
+            </summary>
+        </member>
+        <member name="F:ProjectWorkServiceCatalogo.API.Controllers.CommonControllerBase._logger">
+            <summary>
+            Logger utility
+            </summary>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.CommonControllerBase.#ctor(Microsoft.Extensions.Logging.ILogger{ProjectWorkServiceCatalogo.API.Controllers.CommonControllerBase})">
+            <summary>
+            Common class controller constructor
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.CategoriaController.Create(System.String)">
+            <summary>
+            Inserisce una nuova categoria
+            </summary>
+            <param name="nome">Nome della categoria</param>
+            <returns>L'esito dell'operazione</returns>
+            <response code="200">OK</response>
+            <response code="400">Bad request. Codes: INVALID_REQUEST</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="T:ProjectWorkServiceCatalogo.API.Program">
+            <summary>
+            Entry Point class
+            </summary>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Program.Main(System.String[])">
+            <summary>
+            Entry Point method
+            </summary>
+            <param name="args"></param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2 @@
+﻿dotnet ef migrations add db-init --project ../ProjectWorkServiceCatalogo.DL
+dotnet ef migrations script --idempotent --output ../ProjectWorkServiceCatalogo.DL/Scripts/db-init.sql --project ../ProjectWorkServiceCatalogo.DL
