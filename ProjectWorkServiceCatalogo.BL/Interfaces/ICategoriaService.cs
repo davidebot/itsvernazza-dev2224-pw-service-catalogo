@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 namespace ProjectWorkServiceCatalogo.BL.Interfaces
 {
     public interface ICategoriaService

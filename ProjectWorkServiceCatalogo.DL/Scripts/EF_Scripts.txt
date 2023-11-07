@@ -1,0 +1,5 @@
+﻿Creazione nuova versione del DB (Migration). Sostituire "db-init" con un nome che identifichi le modifiche apportate.
+dotnet ef migrations add db-init --project ../ProjectWorkServiceCatalogo.DL
+
+Creazione script SQL da eseguire manualmente sul database.
+dotnet ef migrations script --idempotent --output ../ProjectWorkServiceCatalogo.DL/Scripts/db-ef-script.sql --project ../ProjectWorkServiceCatalogo.DL

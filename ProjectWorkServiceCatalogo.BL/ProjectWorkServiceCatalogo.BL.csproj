@@ -1,25 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Models\" />
-    <None Remove="Interfaces\" />
-    <None Remove="Implementations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Implementations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectWorkServiceCatalogo.DL\ProjectWorkServiceCatalogo.DL.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Links.OpenLending.Services.Common.Exception" Version="1.0.0" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectWorkServiceCatalogo.DL\ProjectWorkServiceCatalogo.DL.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Links.OpenLending.Services.Common.Exception" Version="1.0.0" />
+	</ItemGroup>
 </Project>

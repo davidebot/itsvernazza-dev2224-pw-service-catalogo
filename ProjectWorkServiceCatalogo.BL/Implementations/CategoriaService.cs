@@ -1,4 +1,6 @@
-﻿using Links.OpenLending.Services.Common.Exception;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Links.OpenLending.Services.Common.Exception;
 using Links.OpenLending.Services.Common.Exception.Models;
 using ProjectWorkServiceCatalogo.BL.Interfaces;
 using ProjectWorkServiceCatalogo.DL;
