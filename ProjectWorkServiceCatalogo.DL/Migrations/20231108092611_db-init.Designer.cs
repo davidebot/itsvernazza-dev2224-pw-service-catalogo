@@ -11,7 +11,7 @@ using ProjectWorkServiceCatalogo.DL;
 namespace ProjectWorkServiceCatalogo.DL.Migrations
 {
     [DbContext(typeof(CatalogoServiceDbContext))]
-    [Migration("20231107193910_db-init")]
+    [Migration("20231108092611_db-init")]
     partial class dbinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
