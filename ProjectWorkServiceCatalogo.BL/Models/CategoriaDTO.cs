@@ -5,6 +5,11 @@
         public CategoriaDTO()
         {
         }
+        public CategoriaDTO(long id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
 
         public long Id { get; set; } = 0;
 
