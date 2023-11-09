@@ -46,6 +46,8 @@ namespace ProjectWorkServiceCatalogo.API
 
             builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
+            builder.Services.AddScoped<IProdottoService, ProdottoService>();
+
             var app = builder.Build();
 
             app.UseLinksCommonOpenAPI(configuration.GetSection(OpenAPIConfigurationsModel.Section));

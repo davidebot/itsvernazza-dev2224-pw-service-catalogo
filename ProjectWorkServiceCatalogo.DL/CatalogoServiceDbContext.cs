@@ -18,5 +18,6 @@ namespace ProjectWorkServiceCatalogo.DL
         }
 
         public virtual DbSet<TbCategoria> TbCategoria => Set<TbCategoria>();
+        public virtual DbSet<TbProdotto> TbProdotto => Set<TbProdotto>();
     }
 }
