@@ -60,14 +60,12 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
         public async Task<bool> Delete(long id)
         {
-            bool exists = _catalogoServiceDbContext.TbCategoria.Any(c => c.IdCategoria == id);
+            var categoriaDaRimuovere = await _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == id).FirstOrDefaultAsync();
 
-            if (!exists)
+            if (categoriaDaRimuovere == null)
             {
-                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da cancellare", 404, "NOT FOUND"));
+                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT FOUND"));
             }
-
-            var  categoriaDaRimuovere = await _catalogoServiceDbContext.TbCategoria.FirstOrDefaultAsync(c => c.IdCategoria == id);
 
             _catalogoServiceDbContext.TbCategoria.Remove(categoriaDaRimuovere);
 
