@@ -52,6 +52,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpPut]
         [AllowAnonymous]
+        [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] long id, [FromBody] string nome)
         {
             _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, id, nome);
@@ -61,7 +62,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Inserisce una nuova categoria
+        /// Cancella una categoria
         /// </summary>
         /// <param name="id">id della categoria da cancellare</param>
         /// <returns>L'esito dell'operazione</returns>
@@ -102,7 +103,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Inserisce una nuova categoria
+        /// Visualizza una categoria tramite id
         /// </summary>
         /// <param name="id">id della categoria da visualizzare</param>
         /// <returns>L'esito dell'operazione</returns>
