@@ -70,6 +70,56 @@
             <response code="404">Not Found. Codes: NOT_FOUND</response>
             <response code="500">System error. Codes: SYS_ERROR</response>
         </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.Create(ProjectWorkServiceCatalogo.BL.Models.ProdottoUpsertDTO)">
+            <summary>
+            Inserisce un nuovo prodotto
+            </summary>
+            <param name="prodottoDTO">Dati del prodotto</param>
+            <returns>L'esito dell'operazione</returns>
+            <response code="201">Created</response>
+            <response code="400">Bad request. Codes: INVALID_REQUEST</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.FindAll">
+            <summary>
+            Restituisce i prodotti
+            </summary> 
+            <returns>L'elenco dei prodotti</returns>
+            <response code="200">OK</response>
+            <response code="400">Bad request. Codes: INVALID_REQUEST</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.FindById(System.Int32)">
+            <summary>
+            Restituisce il dettaglio del prodotto
+            </summary> 
+            <returns>Il dettaglio del prodotto</returns>
+            <param name="id">Id del prodotto</param>
+            <response code="200">OK</response>
+            <response code="400">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.Update(System.Int32,ProjectWorkServiceCatalogo.BL.Models.ProdottoUpsertDTO)">
+            <summary>
+            Aggiorna il prodotto
+            </summary> 
+            <returns>L'esito dell'operazione</returns>
+            <param name="id">Id del prodotto</param>
+            <param name="prodotto">Dati da aggiornare</param>
+            <response code="200">OK</response>
+            <response code="400">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.Delete(System.Int32)">
+            <summary>
+            Elimina il prodotto
+            </summary> 
+            <returns>L'esito dell'operazione</returns>
+            <param name="id">Id del prodotto</param>
+            <response code="200">OK</response>
+            <response code="400">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
         <member name="T:ProjectWorkServiceCatalogo.API.Program">
             <summary>
             Entry Point class

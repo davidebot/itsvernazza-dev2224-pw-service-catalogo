@@ -21,45 +21,36 @@ namespace ProjectWorkServiceCatalogo.DL.Models
         [Required]
         [Column("NOME")]
         [MaxLength(100)]
-        public string? Nome { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty;
 
-        
+
         [Required]
-        [Column("IDCATEGORIA")]
+        [Column("FK_CATEGORIA")]
         [MaxLength(50)]
-        public long? IdCategoria { get; set; }
+        public long FkCategoria { get; set; }
 
-        [ForeignKey(nameof(IdCategoria))]
-        public virtual TbCategoria IdCatNavigation { get; set; } = null!;
+        [ForeignKey(nameof(FkCategoria))]
+        public virtual TbCategoria FkCategoriaNavigation { get; set; } = null!;
 
         [Required]
         [Column("PREZZO")]
-        public decimal? Prezzo { get; set; } = decimal.Zero;
+        public decimal Prezzo { get; set; } = 0;
 
-        
         [Column("PESO")]
-        public decimal? Peso { get; set; } = decimal.Zero;
+        public decimal? Peso { get; set; } = null;
 
         [Required]
         [Column("DISPONIBILITA")]
-        public int? Disponibilita { get; set; }
+        public int Disponibilita { get; set; } = 0;
 
-        
         [Column("DESCRIZIONE")]
-        public string? Descrizione { get; set; } = string.Empty;
-        
-        
+        public string? Descrizione { get; set; } = null;
+
         [Column("IMMAGINE")]
-        public string? Immagine { get; set; } = string.Empty;
-        
-        
+        public string? Immagine { get; set; } = null;
+
         [Column("MATERIALE")]
-        public string? Materiale { get; set; } = string.Empty;
-
-
-
-
-
+        public string? Materiale { get; set; } = null;
 
     }
 }

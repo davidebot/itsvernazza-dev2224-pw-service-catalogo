@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using ProjectWorkServiceCatalogo.BL.Interfaces;
 using System.Runtime.CompilerServices;
 using ProjectWorkServiceCatalogo.BL.Models;
+using System.Collections.Generic;
 
 namespace ProjectWorkServiceCatalogo.API.Controllers.v1
 {
@@ -48,7 +49,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         /// <response code="200">OK</response>
         /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpPut]
@@ -56,7 +57,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] long id, [FromBody] string nome)
         {
-            _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, id, nome);
+            _logger.Log(LogLevel.Debug, "{@Method} started with id: {@Id} and name {@Name}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, id, nome);
             var result = await _categoriaService.Update(id, nome);
             _logger.Log(LogLevel.Debug, "{@Method} ended", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName);
             return Ok(result);
@@ -70,7 +71,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         /// <response code="200">OK</response>
         /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpDelete]
@@ -91,11 +92,11 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         /// <response code="200">OK</response>
         /// <response code="400">Bad request. Codes: INVALID_REQUEST</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(List<CategoriaDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        [AllowAnonymous]   
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName);
@@ -112,7 +113,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         /// <response code="200">OK</response>
         /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CategoriaDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpGet]

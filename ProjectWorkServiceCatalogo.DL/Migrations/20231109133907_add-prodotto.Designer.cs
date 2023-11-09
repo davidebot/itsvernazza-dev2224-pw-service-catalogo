@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectWorkServiceCatalogo.DL;
@@ -11,9 +12,10 @@ using ProjectWorkServiceCatalogo.DL;
 namespace ProjectWorkServiceCatalogo.DL.Migrations
 {
     [DbContext(typeof(CatalogoServiceDbContext))]
-    partial class CatalogoServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231109133907_add-prodotto")]
+    partial class addprodotto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

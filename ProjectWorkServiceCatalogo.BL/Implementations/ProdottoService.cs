@@ -16,12 +16,12 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
     public class ProdottoService : IProdottoService
     {
         private readonly CatalogoServiceDbContext _catalogoServiceDbContext;
-        public ProdottoService (CatalogoServiceDbContext catalogoServiceDbContext)
+        public ProdottoService(CatalogoServiceDbContext catalogoServiceDbContext)
         {
             _catalogoServiceDbContext = catalogoServiceDbContext;
         }
 
-        public async Task<bool> Create(ProdottoDTO prodottoDTO)
+        public async Task<bool> Create(ProdottoUpsertDTO prodottoDTO)
         {
             bool exist = _catalogoServiceDbContext.TbProdotto.Any(p => p.Nome.ToLower() == prodottoDTO.Nome.ToLower());
             if (exist)
@@ -33,13 +33,12 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
             {
                 Nome = prodottoDTO.Nome,
                 Prezzo = prodottoDTO.Prezzo,
-                IdCategoria = prodottoDTO.Categoria,
+                FkCategoria = prodottoDTO.Categoria,
                 Immagine = prodottoDTO.Immagine,
                 Descrizione = prodottoDTO.Descrizione,
                 Materiale = prodottoDTO.Materiale,
                 Peso = prodottoDTO.Peso,
-                Disponibilita = prodottoDTO.Disponibilita
-
+                Disponibilita = prodottoDTO.Disponibilita,
             };
 
             await _catalogoServiceDbContext.TbProdotto.AddAsync(prodotto);
@@ -50,42 +49,38 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
         public async Task<List<ProdottoDTO>> FindAll()
         {
-            //bool isEmpty = _catalogoServiceDbContext.TbProdotto.Any();
-            //if (isEmpty)
-            //{
-            //    throw new Exception("Nessun prodotto da visualizzare");
-            //}
+            var listaProdotti = await _catalogoServiceDbContext.TbProdotto
+                .Include(prodotto => prodotto.FkCategoriaNavigation)
+                .Select(prodotto => new ProdottoDTO()
+                {
+                    Id = prodotto.IdProdotto,
+                    Nome = prodotto.Nome,
+                    Prezzo = prodotto.Prezzo,
+                    Categoria = new CategoriaDTO(prodotto.FkCategoriaNavigation.IdCategoria, prodotto.FkCategoriaNavigation.Nome),
+                    Immagine = prodotto.Immagine,
+                    Descrizione = prodotto.Descrizione,
+                    Materiale = prodotto.Materiale,
+                    Peso = prodotto.Peso,
+                    Disponibilita = prodotto.Disponibilita,
+                }).ToListAsync();
 
-            var listaProdotti = await _catalogoServiceDbContext.TbProdotto.Select(prodotto => new ProdottoDTO()
-            {
-                Nome = prodotto.Nome,
-                Prezzo = prodotto.Prezzo,
-                Categoria = prodotto.IdCategoria,
-                Immagine = prodotto.Immagine,
-                Descrizione = prodotto.Descrizione,
-                Materiale = prodotto.Materiale,
-                Peso = prodotto.Peso,
-                Disponibilita = prodotto.Disponibilita
-            }).ToListAsync();
-           
-            
             return listaProdotti;
         }
-        
+
         public async Task<ProdottoDTO> FindById(long id)
         {
             ProdottoDTO? prodotto = await _catalogoServiceDbContext.TbProdotto
                 .Where(p => p.IdProdotto == id)
                 .Select(prodotto => new ProdottoDTO()
-                    {
-                        Nome = prodotto.Nome,
-                        Prezzo = prodotto.Prezzo,
-                        Categoria = prodotto.IdCategoria,
-                        Immagine = prodotto.Immagine,
-                        Descrizione = prodotto.Descrizione,
-                        Materiale = prodotto.Materiale,
-                        Peso = prodotto.Peso,
-                        Disponibilita = prodotto.Disponibilita
+                {
+                    Nome = prodotto.Nome,
+                    Prezzo = prodotto.Prezzo,
+                    Categoria = new CategoriaDTO(prodotto.FkCategoriaNavigation.IdCategoria, prodotto.FkCategoriaNavigation.Nome),
+                    Immagine = prodotto.Immagine,
+                    Descrizione = prodotto.Descrizione,
+                    Materiale = prodotto.Materiale,
+                    Peso = prodotto.Peso,
+                    Disponibilita = prodotto.Disponibilita
                 })
                 .FirstOrDefaultAsync();
 
@@ -93,11 +88,11 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
             {
                 throw new BusinessException(new BusinessErrorDTO($"Prodotto con Id: {id} non trovato", 404, "NOT_FOUND"));
             }
-            
+
             return prodotto;
         }
 
-        public async Task<bool> Update(long id, ProdottoDTO prodottoDTO)
+        public async Task<bool> Update(long id, ProdottoUpsertDTO prodottoDTO)
         {
             TbProdotto? prodotto = await _catalogoServiceDbContext.TbProdotto
                 .Where(p => p.IdProdotto == id)
@@ -108,33 +103,30 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
                 throw new BusinessException(new BusinessErrorDTO($"Prodotto con Id: {id} non trovato", 404, "NOT_FOUND"));
             }
 
-            prodotto.Nome = prodottoDTO.Nome ?? prodotto.Nome;
+            prodotto.Nome = prodottoDTO.Nome;
             prodotto.Descrizione = prodottoDTO.Descrizione ?? prodotto.Descrizione;
-            prodotto.Disponibilita = prodottoDTO.Disponibilita ?? prodotto.Disponibilita;
+            prodotto.Disponibilita = prodottoDTO.Disponibilita;
             prodotto.Peso = prodottoDTO.Peso ?? prodotto.Peso;
-            prodotto.Prezzo = prodottoDTO.Prezzo ?? prodotto.Prezzo;
+            prodotto.Prezzo = prodottoDTO.Prezzo;
             prodotto.Materiale = prodottoDTO.Materiale ?? prodotto.Materiale;
             prodotto.Immagine = prodottoDTO.Immagine ?? prodotto.Immagine;
-            prodotto.IdCategoria = prodottoDTO.Categoria ?? prodotto.IdCategoria;
+            prodotto.FkCategoria = prodottoDTO.Categoria;
 
-
-            _catalogoServiceDbContext.SaveChangesAsync();
+            await _catalogoServiceDbContext.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task<bool?> Delete(long id)
+        public async Task<bool> Delete(long id)
         {
-            bool pr = _catalogoServiceDbContext.TbProdotto.Any(p => p.IdProdotto == id);
-            if (!pr)
+            var prodotto = await _catalogoServiceDbContext.TbProdotto.Where(p => p.IdProdotto == id).FirstOrDefaultAsync();
+            if (prodotto == null)
             {
                 throw new BusinessException(new BusinessErrorDTO($"Prodotto con Id: {id} non trovato", 404, "NOT_FOUND"));
             }
-            var prodotto = _catalogoServiceDbContext.TbProdotto.Where(p => p.IdProdotto.Equals(id)).FirstOrDefault();
+
             _catalogoServiceDbContext.Remove(prodotto);
-
-
-            _catalogoServiceDbContext.SaveChangesAsync();
+            await _catalogoServiceDbContext.SaveChangesAsync();
 
             return true;
         }

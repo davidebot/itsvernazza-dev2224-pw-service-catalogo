@@ -45,10 +45,10 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
         {
 
             var categoria = await _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == id).FirstOrDefaultAsync();
- 
+
             if (categoria == null)
             {
-                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da modificare", 404, "NOT FOUND"));
+                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da modificare", 404, "NOT_FOUND"));
             }
 
             categoria.Nome = nome;
@@ -64,7 +64,7 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
             if (categoriaDaRimuovere == null)
             {
-                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT FOUND"));
+                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT_FOUND"));
             }
 
             _catalogoServiceDbContext.TbCategoria.Remove(categoriaDaRimuovere);
@@ -88,15 +88,11 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
             if (categoria == null)
             {
-                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT FOUND"));
+                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT_FOUND"));
             }
-            var categoriaVisualizzata = new CategoriaDTO(categoria.IdCategoria,categoria.Nome);
-            
+            var categoriaVisualizzata = new CategoriaDTO(categoria.IdCategoria, categoria.Nome);
+
             return categoriaVisualizzata;
-
-
-
-
         }
 
 

@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace ProjectWorkServiceCatalogo.BL.Models
 {
-    public class ProdottoDTO
+    public class ProdottoUpsertDTO
     {
-        public ProdottoDTO()
+        public ProdottoUpsertDTO()
         {
 
         }
 
-        public long Id { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public CategoriaDTO Categoria { get; set; } = null!;
+        public long Categoria { get; set; }
         public decimal Prezzo { get; set; }
         public decimal? Peso { get; set; }
         public int Disponibilita { get; set; }

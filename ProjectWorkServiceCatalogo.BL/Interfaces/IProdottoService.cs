@@ -8,9 +8,8 @@ namespace ProjectWorkServiceCatalogo.BL.Interfaces
     {
         public Task<List<ProdottoDTO>> FindAll();
         public Task<ProdottoDTO> FindById(long id);
-        public Task<bool> Create(ProdottoDTO prdottoDTO);
-
-        public Task<bool> Update(long id, ProdottoDTO prdottoDTO);
-        Task<bool?> Delete(long id);
+        public Task<bool> Create(ProdottoUpsertDTO prdottoDTO);
+        public Task<bool> Update(long id, ProdottoUpsertDTO prdottoDTO);
+        public Task<bool> Delete(long id);
     }
 }
