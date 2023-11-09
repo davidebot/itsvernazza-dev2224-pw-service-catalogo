@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Links.OpenLending.Services.Common.Exception;
 using Links.OpenLending.Services.Common.Exception.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using ProjectWorkServiceCatalogo.BL.Interfaces;
 using ProjectWorkServiceCatalogo.BL.Models;
 using ProjectWorkServiceCatalogo.DL;
@@ -66,13 +67,15 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
                 throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da cancellare", 404, "NOT FOUND"));
             }
 
-            var categoriaDaRimuovere = _catalogoServiceDbContext.TbCategoria.FirstOrDefault(c => c.IdCategoria == id);
+            var  categoriaDaRimuovere = await _catalogoServiceDbContext.TbCategoria.FirstOrDefaultAsync(c => c.IdCategoria == id);
 
             _catalogoServiceDbContext.TbCategoria.Remove(categoriaDaRimuovere);
 
             await _catalogoServiceDbContext.SaveChangesAsync();
 
             return true;
+
+
         }
 
         public async Task<List<CategoriaDTO>> GetAll()
@@ -83,9 +86,19 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
         public async Task<CategoriaDTO> GetById(long id)
         {
+            var categoria = await _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == id).FirstOrDefaultAsync();
+
+            if (categoria == null)
+            {
+                throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da visualizzare", 404, "NOT FOUND"));
+            }
+            var categoriaVisualizzata = new CategoriaDTO(categoria.IdCategoria,categoria.Nome);
             
-            return await _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == id).Select(c =>
-                new CategoriaDTO(c.IdCategoria, c.Nome)).FirstOrDefaultAsync();
+            return categoriaVisualizzata;
+
+
+
+
         }
 
 

@@ -40,12 +40,13 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
             return Ok(result);
         }
         /// <summary>
-        /// Modifica una categoria
+        /// Modifica una categoria tramite id
         /// </summary>
-        /// <param name="nome">id da route e nome da modificare</param>
+        /// <param name="id">id della categoria da modificare</param>
+        /// <param name="nome">nome della categoria da modificare</param>
         /// <returns>L'esito dell'operazione</returns>
         /// <response code="200">OK</response>
-        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
@@ -62,19 +63,20 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Cancella una categoria
+        /// Cancella una categoria tramite id
         /// </summary>
         /// <param name="id">id della categoria da cancellare</param>
         /// <returns>L'esito dell'operazione</returns>
         /// <response code="200">OK</response>
-        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpDelete]
         [AllowAnonymous]
-        public async Task<IActionResult> Delete([FromBody] long id)
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] long id)
         {
             _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, id);
             var result = await _categoriaService.Delete(id);
@@ -108,7 +110,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         /// <param name="id">id della categoria da visualizzare</param>
         /// <returns>L'esito dell'operazione</returns>
         /// <response code="200">OK</response>
-        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="404">Not Found. Codes: NOT_FOUND</response>
         /// <response code="500">System error. Codes: SYS_ERROR</response>
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
