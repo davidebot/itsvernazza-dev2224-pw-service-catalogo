@@ -30,6 +30,46 @@
             <response code="400">Bad request. Codes: INVALID_REQUEST</response>
             <response code="500">System error. Codes: SYS_ERROR</response>
         </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.CategoriaController.Update(System.Int64,System.String)">
+            <summary>
+            Modifica una categoria tramite id
+            </summary>
+            <param name="id">id della categoria da modificare</param>
+            <param name="nome">nome della categoria da modificare</param>
+            <returns>L'esito dell'operazione</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.CategoriaController.Delete(System.Int64)">
+            <summary>
+            Cancella una categoria tramite id
+            </summary>
+            <param name="id">id della categoria da cancellare</param>
+            <returns>L'esito dell'operazione</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.CategoriaController.GetAll">
+            <summary>
+            Visualizza tutte le categorie
+            </summary>
+            <returns>L'esito dell'operazione</returns>
+            <response code="200">OK</response>
+            <response code="400">Bad request. Codes: INVALID_REQUEST</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.CategoriaController.GetById(System.Int64)">
+            <summary>
+            Visualizza una categoria tramite id
+            </summary>
+            <param name="id">id della categoria da visualizzare</param>
+            <returns>L'esito dell'operazione</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found. Codes: NOT_FOUND</response>
+            <response code="500">System error. Codes: SYS_ERROR</response>
+        </member>
         <member name="T:ProjectWorkServiceCatalogo.API.Program">
             <summary>
             Entry Point class
