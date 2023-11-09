@@ -39,16 +39,38 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
             _logger.Log(LogLevel.Debug, "{@Method} ended", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName);
             return Ok(result);
         }
+        /// <summary>
+        /// Modifica una categoria
+        /// </summary>
+        /// <param name="nome">id da route e nome da modificare</param>
+        /// <returns>L'esito dell'operazione</returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="500">System error. Codes: SYS_ERROR</response>
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpPut]
         [AllowAnonymous]
-        public async Task<IActionResult> Update([FromBody] CategoriaDTO categoria)
+        public async Task<IActionResult> Update([FromRoute] long id, [FromBody] string nome)
         {
-            _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, categoria);
-            var result = await _categoriaService.Update(categoria);
+            _logger.Log(LogLevel.Debug, "{@Method} started with request: {@Request}", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName, id, nome);
+            var result = await _categoriaService.Update(id, nome);
             _logger.Log(LogLevel.Debug, "{@Method} ended", MethodBase.GetCurrentMethod()?.ReflectedType?.FullName);
             return Ok(result);
         }
 
+        /// <summary>
+        /// Inserisce una nuova categoria
+        /// </summary>
+        /// <param name="id">id della categoria da cancellare</param>
+        /// <returns>L'esito dell'operazione</returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="500">System error. Codes: SYS_ERROR</response>
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpDelete]
         [AllowAnonymous]
         public async Task<IActionResult> Delete([FromBody] long id)
@@ -59,6 +81,16 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
             return Ok(result);
         }
 
+        /// <summary>
+        /// Visualizza tutte le categorie
+        /// </summary>
+        /// <returns>L'esito dell'operazione</returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad request. Codes: INVALID_REQUEST</response>
+        /// <response code="500">System error. Codes: SYS_ERROR</response>
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [AllowAnonymous]   
         public async Task<IActionResult> GetAll()
@@ -69,6 +101,17 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
             return Ok(result);
         }
 
+        /// <summary>
+        /// Inserisce una nuova categoria
+        /// </summary>
+        /// <param name="id">id della categoria da visualizzare</param>
+        /// <returns>L'esito dell'operazione</returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found. Codes: INVALID_REQUEST</response>
+        /// <response code="500">System error. Codes: SYS_ERROR</response>
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [AllowAnonymous]
         [Route("{id}")]

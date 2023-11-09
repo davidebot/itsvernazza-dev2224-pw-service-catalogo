@@ -40,17 +40,17 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
             return true;
         }
 
-        public async Task<bool> Update(CategoriaDTO categoria)
+        public async Task<bool> Update(long id, string nome)
         {
 
-            var IdDaModificare = _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == categoria.Id);
+            var categoria = await _catalogoServiceDbContext.TbCategoria.Where(c => c.IdCategoria == id).FirstOrDefaultAsync();
  
-            if(IdDaModificare == null)
+            if (categoria == null)
             {
                 throw new BusinessException(new BusinessErrorDTO("Categoria assente, impossibile da modificare", 404, "NOT FOUND"));
             }
-            
-            _catalogoServiceDbContext.TbCategoria.FirstOrDefault(c => c.IdCategoria == categoria.Id).Nome = categoria.Nome;
+
+            categoria.Nome = nome;
 
             await _catalogoServiceDbContext.SaveChangesAsync();
 
