@@ -19,7 +19,7 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         {
             _prodottoService = prodottoService;
         }
-
+        
         /// <summary>
         /// Inserisce un nuovo prodotto
         /// </summary>
@@ -42,8 +42,9 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Restituisce i prodotti
+        /// Restituisce i prodotti filtrati
         /// </summary> 
+        /// <param name="idCategoria">Filtro per categoria</param>
         /// <returns>L'elenco dei prodotti</returns>
         /// <response code="200">OK</response>
         /// <response code="400">Bad request. Codes: INVALID_REQUEST</response>
@@ -53,9 +54,9 @@ namespace ProjectWorkServiceCatalogo.API.Controllers.v1
         [ProducesResponseType(typeof(ErrorResponseDTO), StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> FindAll()
+        public async Task<IActionResult> FindAll([FromQuery] long idCategoria)
         {
-            return Ok(await _prodottoService.FindAll());
+            return Ok(await _prodottoService.FindAll(idCategoria));
         }
 
         /// <summary>

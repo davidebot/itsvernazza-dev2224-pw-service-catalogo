@@ -80,10 +80,11 @@
             <response code="400">Bad request. Codes: INVALID_REQUEST</response>
             <response code="500">System error. Codes: SYS_ERROR</response>
         </member>
-        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.FindAll">
+        <member name="M:ProjectWorkServiceCatalogo.API.Controllers.v1.ProdottoController.FindAll(System.Int64)">
             <summary>
-            Restituisce i prodotti
+            Restituisce i prodotti filtrati
             </summary> 
+            <param name="idCategoria">Filtro per categoria</param>
             <returns>L'elenco dei prodotti</returns>
             <response code="200">OK</response>
             <response code="400">Bad request. Codes: INVALID_REQUEST</response>

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectWorkServiceCatalogo.DL.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore; 
 
 namespace ProjectWorkServiceCatalogo.BL.Implementations
 {
@@ -47,10 +47,14 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
 
         }
 
-        public async Task<List<ProdottoDTO>> FindAll()
+        public async Task<List<ProdottoDTO>> FindAll(long idCategoria)
         {
             var listaProdotti = await _catalogoServiceDbContext.TbProdotto
                 .Include(prodotto => prodotto.FkCategoriaNavigation)
+                .Where(prodotto =>
+                    (idCategoria  == 0) ||
+                    (prodotto.FkCategoriaNavigation.IdCategoria == idCategoria) 
+                )
                 .Select(prodotto => new ProdottoDTO()
                 {
                     Id = prodotto.IdProdotto,
@@ -62,7 +66,7 @@ namespace ProjectWorkServiceCatalogo.BL.Implementations
                     Materiale = prodotto.Materiale,
                     Peso = prodotto.Peso,
                     Disponibilita = prodotto.Disponibilita,
-                }).ToListAsync();
+                }).ToListAsync(); 
 
             return listaProdotti;
         }

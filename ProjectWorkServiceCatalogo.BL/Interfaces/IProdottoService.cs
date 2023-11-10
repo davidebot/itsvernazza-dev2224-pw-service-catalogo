@@ -6,7 +6,7 @@ namespace ProjectWorkServiceCatalogo.BL.Interfaces
 {
     public interface IProdottoService
     {
-        public Task<List<ProdottoDTO>> FindAll();
+        public Task<List<ProdottoDTO>> FindAll(long idCategoria);
         public Task<ProdottoDTO> FindById(long id);
         public Task<bool> Create(ProdottoUpsertDTO prdottoDTO);
         public Task<bool> Update(long id, ProdottoUpsertDTO prdottoDTO);
